@@ -1,0 +1,10 @@
+<p>Step 3: Order Summary</p>
+
+<p>Table: {{ table }}</p>
+
+<p>Products:</p>
+<ul>
+  @for (product of products; track product.idMeal) {
+    <li>{{ product.strMeal }} - ${{ product.price | number: '1.2-2' }}</li>
+  }
+</ul>

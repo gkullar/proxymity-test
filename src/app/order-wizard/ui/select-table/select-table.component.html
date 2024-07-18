@@ -1,0 +1,12 @@
+<p>Step 1: Select Table Number</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <select formControlName="tableNumber">
+    @for (table of tableNumbers; track table) {
+    <option [value]="table">
+      {{ table }}
+    </option>
+    }
+  </select>
+  <button type="submit">Next</button>
+</form>

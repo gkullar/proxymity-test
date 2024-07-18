@@ -1,0 +1,24 @@
+@if (categoryValueChanges$ | async) {}
+
+<p>Step 2: Select Items</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <select formControlName="categoryType">
+    @for (category of categories; track category.idCategory) {
+    <option [value]="category.strCategory">
+      {{ category.strCategory }}
+    </option>
+    }
+  </select>
+  @if (products.length) {
+  <select formControlName="productIds" multiple>
+    @for (product of products; track product.idMeal) {
+    <option [value]="product.idMeal">
+      {{ product.strMeal }}
+    </option>
+    }
+  </select>
+  }
+
+  <button type="submit">Next</button>
+</form>

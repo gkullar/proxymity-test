@@ -1,0 +1,36 @@
+@if (getCategories$ | async) {}
+@if (getProducts$ | async) {}
+
+@if (
+  {
+    categories: wizardService.categories.state$ | async,
+    products: wizardService.products.state$ | async,
+    table: wizardService.order.table.state$ | async,
+    selectedProducts: wizardService.order.products.state$ | async,
+    currentStep: currentStep$ | async
+  };
+  as vm
+) {
+  <h3 mat-dialog-title>Create order</h3>
+  <div mat-dialog-content>
+    @if (vm.currentStep === step.SelectTable) {
+      <app-select-table (formSubmit)="onSelectTable($event)" />
+    }
+    @if (vm.currentStep === step.SelectItems) {
+      <app-select-items
+        [categories]="vm.categories || []"
+        [products]="vm.products || []"
+        (selectCategory)="onSelectCategory($event)"
+        (formSubmit)="onSelectProducts($event)"
+      />
+    }
+    @if (vm.currentStep === step.Summary) {
+      <app-order-summary [table]="vm.table || 0" [products]="vm.selectedProducts || []" />
+      <button (click)="onConfirmOrder(vm.table || 0, vm.selectedProducts || [])">Confirm</button>
+    }
+  </div>
+
+  <div mat-dialog-actions>
+    <!-- <button (click)="closeDialog()">Cancel</button> -->
+  </div>
+}

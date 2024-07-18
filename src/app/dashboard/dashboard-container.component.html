@@ -1,0 +1,19 @@
+@if (createOrder$ | async) {}
+@if (statusChange$ | async) {}
+
+<div class="actions">
+  <button (click)="openDialog()">New order</button>
+</div>
+
+<div class="grid">
+  @for (order of orders.state$ | async; track order.table) {
+    <app-dashboard-card
+      [table]="order.table"
+      [status]="order.status"
+      [id]="order.id"
+      (statusChange)="onStatusChange($event)"
+      #tooltip="matTooltip"
+      [matTooltip]="getTooltipInfo(order.products)"
+    />
+  }
+</div>
